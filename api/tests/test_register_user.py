@@ -3,13 +3,14 @@ import json
 import allure
 import pytest
 
-from api.resourses import register
+from api.resourses.user import register
 from utils.handbook import StatusCode, Severity
+from api.resourses.json_schema import register_json_path
 from jsonschema.validators import validate
 
 
 @allure.severity(Severity.BLOCKER)
-@allure.title('Валидация статус кода и ответа сервера после регистрации пользователя')
+@allure.title('Валидация кода и ответа сервера после регистрации пользователя')
 @pytest.mark.api
 def test_register(user_data_for_register):
     with allure.step(f'Регистрируем пользователя. Имя {user_data_for_register.first_name}, '
@@ -17,8 +18,8 @@ def test_register(user_data_for_register):
         resp = register(first_name=user_data_for_register.first_name,
                         last_name=user_data_for_register.last_name,
                         password=user_data_for_register.password)
-    with allure.step('Валидируем status code'):
-        assert resp.status_code == StatusCode.CREATED
+    with allure.step('Валидируем код ответа сервера'):
+        assert resp.status_code == StatusCode.CREATED, f'{resp.status_code} is not {StatusCode.CREATED}'
     resp_json = resp.json()['user']
     with allure.step('Валидируем ответ сервера'):
         assert resp_json['firstName'] == user_data_for_register.first_name
@@ -30,14 +31,14 @@ def test_register(user_data_for_register):
 @allure.title('Валидация JSON_SCHEMA после регистрации пользователя')
 @pytest.mark.api
 def test_register_validate_json_schema(user_data_for_register):
-    with allure.step('Читаем файл-образец с json-schema'):
-        with open('json-schema/register.json') as file:
+    with allure.step('Читаем файл-образец с json_schema'):
+        with open(register_json_path) as file:
             schema = json.loads(file.read())
     with allure.step(f'Регистрируем пользователя. Имя {user_data_for_register.first_name}, '
                      f'фамилия {user_data_for_register.last_name}'):
         resp = register(first_name=user_data_for_register.first_name,
                         last_name=user_data_for_register.last_name,
                         password=user_data_for_register.password)
-    assert resp.status_code == StatusCode.CREATED  # надо ли?
-    with allure.step('Валидируем json-schema'):
+    assert resp.status_code == StatusCode.CREATED, f'{resp.status_code} is not {StatusCode.CREATED}'
+    with allure.step('Валидируем json_schema'):
         validate(resp.json(), schema)

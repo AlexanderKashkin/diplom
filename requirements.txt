@@ -1,5 +1,6 @@
-pytest
-requests
+pytest~=7.4.2
+requests~=2.31.0
 allure-pytest
-curlify
-jsonschema
+curlify~=2.2.1
+jsonschema~=4.19.0
+python-dotenv~=1.0.0

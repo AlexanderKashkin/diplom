@@ -20,3 +20,8 @@ class UserView:
             "password": self.user.password
         }
         return d
+
+    def from_response(self, json: dict) -> UserModel:
+        self.user.id = json['user']['id']
+        self.user.token = json['token']
+        return self.user
