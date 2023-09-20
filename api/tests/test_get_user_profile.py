@@ -13,6 +13,7 @@ from utils import Severity, StatusCode
 @allure.severity(Severity.BLOCKER)
 @allure.title('Валидация данных пользователя после авторизации')
 @pytest.mark.api
+@pytest.mark.user
 def test_get_user_profile(get_user_data_from_env):
     with allure.step('Получаем информацию по профилю пользователя'):
         response = get_profile(get_user_data_from_env.token)
@@ -26,7 +27,7 @@ def test_get_user_profile(get_user_data_from_env):
 
 @allure.severity(Severity.CRITICAL)
 @allure.title('Валидация JSON_SCHEMA данных пользователя')
-@pytest.mark.api
+@pytest.mark.user
 def test_validate_json_schema_user_profile(get_user_data_from_env):
     with allure.step('Читаем файл-образец с json_schema'):
         with open(data_user_json_path) as file:

@@ -15,7 +15,7 @@ def do_request(method: str, base_url: str, url: str, **kwargs) -> requests:
             message = to_curl(resp.request)
             allure.attach(body=message.encode('utf8'), name='Curl',
                           attachment_type=AttachmentType.TEXT, extension='txt')
-            if resp.text == '':  # в случае ответа, когда тело пустое, то падаем на json.dumps()
+            if resp.text == '' or resp.text == 'Contact deleted':  # в случае ответа, когда тело пустое, то падаем на json.dumps()
                 allure.attach(body=resp.text.encode('utf8'), name='empty_response',
                               attachment_type=AttachmentType.JSON, extension='json')
                 return resp

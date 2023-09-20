@@ -12,6 +12,7 @@ from jsonschema.validators import validate
 @allure.severity(Severity.BLOCKER)
 @allure.title('Валидация кода и ответа сервера после регистрации пользователя')
 @pytest.mark.api
+@pytest.mark.user
 def test_register(user_data_for_register):
     with allure.step(f'Регистрируем пользователя. Имя {user_data_for_register.first_name}, '
                      f'фамилия {user_data_for_register.last_name}'):
@@ -30,6 +31,7 @@ def test_register(user_data_for_register):
 @allure.severity(Severity.CRITICAL)
 @allure.title('Валидация JSON_SCHEMA после регистрации пользователя')
 @pytest.mark.api
+@pytest.mark.user
 def test_register_validate_json_schema(user_data_for_register):
     with allure.step('Читаем файл-образец с json_schema'):
         with open(register_json_path) as file:
