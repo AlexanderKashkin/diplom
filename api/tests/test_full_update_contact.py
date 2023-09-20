@@ -1,12 +1,9 @@
-import json
 
 import allure
 import pytest
-from jsonschema.validators import validate
 
 from api.resourses.contact import full_update_contact
 from api.resourses.contact.contact_model import ContactModel
-from api.resourses.json_schema import contact_json_path
 from utils.handbook import Severity, StatusCode
 
 

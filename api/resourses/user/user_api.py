@@ -1,6 +1,6 @@
 import requests
 
-from utils import BASE_URL, Method, headers, do_request
+from utils import BASE_URL, Method, do_request, headers
 from .user_model import UserModel
 from .user_view import UserView
 

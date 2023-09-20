@@ -2,11 +2,11 @@ import json
 
 import allure
 import pytest
-
-from api.resourses.user import register
-from utils.handbook import StatusCode, Severity
-from api.resourses.json_schema import register_json_path
 from jsonschema.validators import validate
+
+from api.resourses.json_schema import register_json_path
+from api.resourses.user import register
+from utils.handbook import Severity, StatusCode
 
 
 @allure.severity(Severity.BLOCKER)

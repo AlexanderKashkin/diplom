@@ -57,5 +57,7 @@ def data_contact():
 @pytest.fixture()
 def add_contact_fixture(get_user_data_from_env, data_contact):
     with allure.step('Создаём контакт'):
-        return add_contact(get_user_data_from_env.token, data_contact)
+        resp = add_contact(get_user_data_from_env.token, data_contact)
+        assert resp.status_code == StatusCode.CREATED
+        return resp
 

@@ -1,9 +1,7 @@
-import os
-
 import allure
 import pytest
 
-from api.resourses.user import log_out, get_profile
+from api.resourses.user import get_profile, log_out
 from utils import Severity, StatusCode
 
 

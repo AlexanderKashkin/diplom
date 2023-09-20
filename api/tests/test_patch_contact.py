@@ -24,6 +24,8 @@ def test_partial_replacement_contact(get_user_data_from_env, add_contact_fixture
         assert resp.json()['lastName'] == last_name
 
 
+# test flaky
+
 @allure.severity(Severity.CRITICAL)
 @allure.title('Валидация JSON_SCHEMA после частичной замены данных контакта')
 @pytest.mark.api
@@ -38,3 +40,4 @@ def test_partial_replacement_contact_validate_json_schema(get_user_data_from_env
         resp = put_contact(get_user_data_from_env.token, add_contact_fixture.json()['_id'], obj_last_name)
     with allure.step('Валидация JSON_SCHEMA после частичной замены данных контакта'):
         validate(resp.json(), schema)
+# test flaky
