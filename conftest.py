@@ -3,13 +3,15 @@ import os
 import allure
 import pytest
 from dotenv import load_dotenv
+from selenium.webdriver.chrome.options import Options
 
 from api.resourses.contact import add_contact
 from api.resourses.contact.contact_model import ContactModel
-from api.resourses.user import UserModel
-from api.resourses.user import auth
-from utils import StatusCode
-from utils.generator_random import generate_random_string
+from api.resourses.user import UserModel, auth
+from config import browser
+from utils import BASE_URL, StatusCode, add_html, add_logs, add_screenshot, add_video, generate_random_string
+
+DEFAULT_BROWSER_VERSION = '100'
 
 
 @pytest.fixture
@@ -61,3 +63,36 @@ def add_contact_fixture(get_user_data_from_env, data_contact):
         assert resp.status_code == StatusCode.CREATED
         return resp
 
+
+def pytest_addoption(parser):
+    parser.addoption('--browser_version', action='store', default="99.0")
+
+
+@pytest.fixture()
+def setup_browser(request):
+    browser_version = request.config.getoption('--browser_version')
+    browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
+    options = Options()
+    selenoid_capabilities = {
+        "browserName": "chrome",
+        "browserVersion": browser_version,
+        "selenoid:options": {
+            "enableVNC": True,
+            "enableVideo": True
+        }
+    }
+    options.capabilities.update(selenoid_capabilities)
+    browser.config.base_url = BASE_URL
+    browser.config.window_width = 1920
+    browser.config.window_height = 1080
+    yield
+    add_logs(browser)
+    add_screenshot(browser)
+    add_html(browser)
+    add_video(browser)
+    browser.quit()
+
+
+@pytest.fixture()
+def web_user_for_auth():
+    return UserModel(email=os.getenv('EMAIL'), password=os.getenv('PASSWORD'))
