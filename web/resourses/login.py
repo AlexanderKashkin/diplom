@@ -1,8 +1,8 @@
 import allure
-from selene import have
+from selene import browser, have
 
 from api.resourses.user import UserModel
-from config import browser
+# from config import browser
 from web.resourses import ContactList, MainPage
 
 

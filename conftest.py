@@ -3,6 +3,7 @@ import os
 import allure
 import pytest
 from dotenv import load_dotenv
+from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
 from api.resourses.contact import add_contact
@@ -34,7 +35,7 @@ def load_env():
 def get_user_data_from_env():
     with allure.step('Получаем данные по пользователю'):
         resp = auth(email=os.getenv('EMAIL'),
-                    password=os.getenv('PASSWORD'))
+                    password=os.getenv('PASSWORD_USER'))
         assert resp.status_code == StatusCode.OK
         return UserModel(token=resp.json()['token'], _id=resp.json()['user']['_id'])
 
@@ -65,34 +66,44 @@ def add_contact_fixture(get_user_data_from_env, data_contact):
 
 
 def pytest_addoption(parser):
+    parser.addoption('--browser_name', action='store', default="chrome",
+                     help="Choose browser: chrome or firefox")
     parser.addoption('--browser_version', action='store', default="99.0")
 
 
-@pytest.fixture()
-def setup_browser(request):
-    browser_version = request.config.getoption('--browser_version')
-    browser_version = browser_version if browser_version != "" else DEFAULT_BROWSER_VERSION
+@pytest.fixture(scope='function')
+def open_browser(request):
+    browser_name = request.config.getoption('browser_name')
+    browser_version = request.config.getoption('browser_version')
     options = Options()
     selenoid_capabilities = {
-        "browserName": "chrome",
-        "browserVersion": browser_version,
+        "browserName": f"{browser_name}",
+        "browserVersion": f"{browser_version}",
         "selenoid:options": {
             "enableVNC": True,
-            "enableVideo": True
+            "enableVideo": True,
         }
     }
     options.capabilities.update(selenoid_capabilities)
+    login = os.getenv('LOGIN')
+    password = os.getenv('PASSWORD')
+    driver = webdriver.Remote(
+        command_executor=f'https://{login}:{password}@selenoid.autotests.cloud/wd/hub',
+        options=options
+    )
+    browser.config.driver = driver
     browser.config.base_url = BASE_URL
     browser.config.window_width = 1920
     browser.config.window_height = 1080
     yield
-    add_logs(browser)
-    add_screenshot(browser)
     add_html(browser)
+    add_screenshot(browser)
     add_video(browser)
+    if browser_name == 'chrome':
+        add_logs(browser)
     browser.quit()
 
 
 @pytest.fixture()
 def web_user_for_auth():
-    return UserModel(email=os.getenv('EMAIL'), password=os.getenv('PASSWORD'))
+    return UserModel(email=os.getenv('EMAIL'), password=os.getenv('PASSWORD_USER'))

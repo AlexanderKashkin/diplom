@@ -9,7 +9,7 @@ from web.resourses import Login, Logout
 @allure.title('Авторизация пользователя')
 @pytest.mark.web
 @pytest.mark.user
-def test_login(web_user_for_auth):
+def test_login(open_browser, web_user_for_auth):
     page = Login(web_user_for_auth)
     page.open()
     page.fill_form()
@@ -21,7 +21,7 @@ def test_login(web_user_for_auth):
 @allure.title('Деавторизация пользователя')
 @pytest.mark.web
 @pytest.mark.user
-def test_logout(web_user_for_auth):
+def test_logout(open_browser, web_user_for_auth):
     login_page = Login(web_user_for_auth)
     login_page.open()
     login_page.fill_form()
