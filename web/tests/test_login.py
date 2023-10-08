@@ -8,6 +8,7 @@ from web.resourses import Login, Logout
 @allure.severity(Severity.BLOCKER)
 @allure.title('Авторизация пользователя')
 @pytest.mark.web
+@pytest.mark.user
 def test_login(web_user_for_auth):
     page = Login(web_user_for_auth)
     page.open()
@@ -19,6 +20,7 @@ def test_login(web_user_for_auth):
 @allure.severity(Severity.BLOCKER)
 @allure.title('Деавторизация пользователя')
 @pytest.mark.web
+@pytest.mark.user
 def test_logout(web_user_for_auth):
     login_page = Login(web_user_for_auth)
     login_page.open()

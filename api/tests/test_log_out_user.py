@@ -8,6 +8,7 @@ from utils import Severity, StatusCode
 @allure.severity(Severity.CRITICAL)
 @allure.title('Проверка код ответа сервера после деавторизации')
 @pytest.mark.api
+@pytest.mark.user
 def test_log_out(get_user_data_from_env):
     with allure.step('Осуществляем logout'):
         resp = log_out(token=get_user_data_from_env.token)
@@ -18,6 +19,7 @@ def test_log_out(get_user_data_from_env):
 @allure.severity(Severity.CRITICAL)
 @allure.title('Проверка получения данных пользователя, для которого выполнена деавторизация')
 @pytest.mark.api
+@pytest.mark.user
 def test_log_out_and_get_user_data(get_user_data_from_env):
     token = get_user_data_from_env.token
     with allure.step('Осуществляем logout'):

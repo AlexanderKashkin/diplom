@@ -10,6 +10,7 @@ from utils import Severity, StatusCode
 @allure.severity(Severity.BLOCKER)
 @allure.title('Валидация данных пользователя после авторизации')
 @pytest.mark.api
+@pytest.mark.user
 def test_auth():
     with allure.step('Выполняем авторизацию'):
         resp = auth(email=os.getenv('EMAIL'),

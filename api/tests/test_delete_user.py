@@ -8,6 +8,7 @@ from utils import Severity, StatusCode
 @allure.severity(Severity.CRITICAL)
 @allure.title('Проверка кода ответа от сервера после удаления пользователя')
 @pytest.mark.api
+@pytest.mark.user
 def test_delete_user(user_data_for_register):
     with allure.step('Регистрируем пользователя'):
         resp = register(first_name=user_data_for_register.first_name,
