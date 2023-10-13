@@ -55,21 +55,21 @@ pytest .
 
 ## Интеграция с Allure
 - после прохождения тестов будет собран отчёт на основе генератора Allure;
-<img src="picture/dash_local_allure.jpg" alt="dash_local_allure"/>
+<img src="picture/dash_local_allure.png" alt="dash_local_allure"/>
 - к api тестам приложены logs, cUrl;
-<img src="picture/logs_curl.jpg" alt="dash_local_allure"/>
+<img src="picture/logs_curl.jpg" alt="logs_curl"/>
 - к UI тестам приложены video, html, logs, screenshot;
-<img src="picture/logs_ui.jpg" alt="dash_local_allure"/>
+<img src="picture/logs_ui.jpg" alt="logs_ui"/>
 
 ## Интеграция с Allure TestOps
 - результаты прохождения тестов, а также сами тест-кейсы будут отправлены в TestOps Allure;
-<img src="picture/test_ops_test_cases.jpg" alt="dash_local_allure"/>
+<img src="picture/test_ops_test_cases.jpg" alt="test_ops_test_cases"/>
 - на основе результатов будет сгенерирован дашборд
-<img src="picture/test_ops_dash.jpg" alt="dash_local_allure"/>
+<img src="picture/test_ops_dash.png" alt="test_ops_dash"/>
 
 ## Нотификация в Telegram
-- после прохождения тестов результаты будут отправлены в Telegram.
-<img src="picture/telegram_not.jpg" alt="dash_local_allure"/>
+- после прохождения тестов результаты будут отправлены в Telegram;  
+<img src="picture/telegram_not.png" alt="telegram_not"/>
 
 ## Пример прохождения UI-теста
 <img src="picture/1e66982f003b2056cd1399b13bfd11c9.gif">
