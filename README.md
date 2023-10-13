@@ -28,12 +28,17 @@
  - получение информации о контакте;
  - частичное обновление информации о контакте;
  - полное обновление информации о контакте;
- - удаление пользователя.
+ - удаление контакта пользователя.
 
 ## Подготовка перед запуском
 - создать файл с данными уже существующего пользователя;
 - создать файл с данными об удалённом сервере selenoid;
 - создать файл с данным об телеграм-боте, куда необходимо отправить данные о прохождении тестов.
+
+## Полезные ссылки
+ - [Тестируемое web-приложение](https://thinking-tester-contact-list.herokuapp.com/);
+ - [Job Jenkins](https://jenkins.autotests.cloud/job/alexander_diploma_web_api/);
+ - [Allure report](https://jenkins.autotests.cloud/job/alexander_diploma_web_api/allure/).
 
 ## Запуск автотестов
 
@@ -62,6 +67,9 @@ pytest .
 - на основе результатов будет сгенерирован дашборд
 <img src="picture/test_ops_dash.jpg" alt="dash_local_allure"/>
 
-# Нотификация в Telegram
+## Нотификация в Telegram
 - после прохождения тестов результаты будут отправлены в Telegram.
 <img src="picture/telegram_not.jpg" alt="dash_local_allure"/>
+
+## Пример прохождения UI-теста
+<img src="picture/1e66982f003b2056cd1399b13bfd11c9.gif">
