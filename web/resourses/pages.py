@@ -4,9 +4,11 @@ class MainPage:
         self.email = '#email'
         self.password = '#password'
         self.submit = '#submit'
-        self.href = 'body > div:nth-child(3) > a'
+        self.link_api_doc = 'body > div:nth-child(3) > a'
         self.header = 'body > h1'
         self.sub_header = 'body > div:nth-child(2)'
+        self.error_after_login = '#error'
+        self.sign_up = '#signup'
 
 
 class ContactList:
@@ -51,3 +53,4 @@ class AddUser:
         self.password = '#password'
         self.submit = '#submit'
         self.cancel = '#cancel'
+        self.error = '#error'

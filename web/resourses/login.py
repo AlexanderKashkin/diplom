@@ -2,8 +2,7 @@ import allure
 from selene import browser, have
 
 from api.resourses.user import UserModel
-# from config import browser
-from web.resourses import ContactList, MainPage
+from .pages import ContactList, MainPage
 
 
 class Login:
@@ -33,6 +32,14 @@ class Login:
         self.b.element(self.contact_list_page.sub_header_text).should(have.text(sub_header))
         self.b.element(self.contact_list_page.logout).should(have.text('Logout'))
 
+    @allure.step('Проверяем результат после введения некорректных авторизационных данных')
+    def check_result_after_incorrect_login_data(self, name_error: str):
+        self.b.element(self.login_page.error_after_login).should(have.text(name_error))
+
+    @allure.step('Проверяем ссылку на странице')
+    def check_link(self):
+        self.b.element(self.login_page.link_api_doc).click()
+
 
 class Logout:
     def __init__(self):
@@ -48,4 +55,4 @@ class Logout:
     def check_result_after_log_out(self, header: str, sub_header: str, href: str):
         self.b.element(self.login_page.header).should(have.text(header))
         self.b.element(self.login_page.sub_header).should(have.text(sub_header))
-        self.b.element(self.login_page.href).should(have.text(href))
+        self.b.element(self.login_page.link_api_doc).should(have.text(href))

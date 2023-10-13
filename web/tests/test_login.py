@@ -1,6 +1,7 @@
 import allure
 import pytest
 
+from api.resourses.user import UserModel
 from utils import Severity
 from web.resourses import Login, Logout
 
@@ -34,3 +35,26 @@ def test_logout(open_browser, web_user_for_auth):
                    'The database will be purged as needed to keep costs down.',
         href='here'
     )
+
+
+@allure.severity(Severity.BLOCKER)
+@allure.title('Авторизация пользователя с некорректными данными')
+@pytest.mark.web
+@pytest.mark.user
+def test_incorrect_login(open_browser):
+    login_page = Login(
+        user=UserModel(email='incorrect@mail.ru', password='incorrect_password')
+    )
+    login_page.open()
+    login_page.fill_form()
+    login_page.submit()
+    login_page.check_result_after_incorrect_login_data('Incorrect username or password')
+
+
+@allure.severity(Severity.MINOR)
+@allure.title('Проверка ссылки на главной странице')
+@pytest.mark.web
+def test_check_api_documentation(open_browser, web_user_for_auth):
+    login_page = Login(web_user_for_auth)
+    login_page.open()
+    login_page.check_link()

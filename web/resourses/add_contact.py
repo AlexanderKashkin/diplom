@@ -3,7 +3,7 @@ from selene import have
 
 from api.resourses.contact import ContactModel
 from config import browser
-from web.resourses import ContactList, ContactWeb
+from .pages import ContactList, ContactWeb
 
 
 class AddContact:
